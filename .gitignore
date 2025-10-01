@@ -1,17 +1,12 @@
-# Node modules
 node_modules/
 
-# Environment variables
 .env
 
-# Logs
 logs
 *.log
 npm-debug.log*
 
-# OS junk
 .DS_Store
 
-# Editor folders
 .idea/
 .vscode/
