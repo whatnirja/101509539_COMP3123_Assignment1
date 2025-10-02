@@ -53,5 +53,5 @@ employeeSchema.pre('save', function(next) {
     next();
 });
 
-model.exports = mongoose.model('Employee', employeeSchema);
+module.exports = mongoose.model('Employee', employeeSchema);
   
