@@ -15,16 +15,13 @@ router.post(
       body('username').trim().notEmpty(),
       body('email').trim().isEmail()
     ], 'Either username or a valid email is required'),
-    
+
     body('password').trim().notEmpty().withMessage('Password is required')
   ]
-)
+);
 
-
-
-
-
-
-
+router.get("/", (req, res) => {
+  res.send("User route is working");
+});
 
 module.exports = router;
