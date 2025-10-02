@@ -18,6 +18,48 @@ router.get('/', (req, res) => {
 
 router.get("/employees", listEmployees);
 
+router.post(
+  '/employees',
+  [
+    body("firtName").trim().notEmpty().withMessage("First name is required"),
+    body("lastName").trim().notEmpty().withMessage("Last name is required"),
+    body("email").trim().isEmail().withMessage("Valid email is required"),
+    body("position").trim().notEmpty().withMessage("Position is required"),
+    body("salary").isFloat({ gt: 0 }).withMessage("Salary must be a positive number"),
+    body("dateOfJoining").isDate().withMessage("Date of joining is required"),
+    body("department").trim().notEmpty().withMessage("Department is required")
+  ],
+  createEmployee
+);
+
+router.get(
+  '/employees/:id',
+  [
+    param('id').isMongoId().withMessage('Invalid employee ID')
+  ],
+  getEmployeeById
+);
+
+router.put(
+  '/employees/:id',
+  [
+   param("eid").isMongoId(),
+    body("email").optional().isEmail(),
+    body("salary").optional().isNumeric(),
+    body("position").optional().isString(),
+    body("date_of_joining").optional().isISO8601().toDate(),
+    body("department").optional().isString()
+  ],
+  updateEmployeeById
+);
+
+router.delete(
+  '/employees',
+  [
+    query('id').isMongoId().withMessage('Invalid employee ID')
+  ],
+  deleteEmployeeByQuery
+);
 
 
 module.exports = router;
