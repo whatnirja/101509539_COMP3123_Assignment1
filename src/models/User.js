@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-module.exports = router;
-
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
