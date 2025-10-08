@@ -29,6 +29,12 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+  console.log("🔑 Login hit:", req.body);
+  return res.json({ message: "Login endpoint reached" });
+};
+
+
+exports.login = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ status: false, message: "Validation error", errors: errors.array() });
