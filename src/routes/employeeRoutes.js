@@ -24,16 +24,17 @@ router.get("/employees", listEmployees);
 router.post(
   '/employees',
   [
-    body("firtName").trim().notEmpty().withMessage("First name is required"),
-    body("lastName").trim().notEmpty().withMessage("Last name is required"),
-    body("email").trim().isEmail().withMessage("Valid email is required"),
-    body("position").trim().notEmpty().withMessage("Position is required"),
-    body("salary").isFloat({ gt: 0 }).withMessage("Salary must be a positive number"),
-    body("dateOfJoining").isDate().withMessage("Date of joining is required"),
-    body("department").trim().notEmpty().withMessage("Department is required")
+    body('first_name').trim().notEmpty().withMessage('First name is required'),
+    body('last_name').trim().notEmpty().withMessage('Last name is required'),
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('position').trim().notEmpty().withMessage('Position is required'),
+    body('salary').isNumeric().withMessage('Salary must be a number'),
+    body('date_of_joining').isISO8601().withMessage('Date of joining is required'),
+    body('department').trim().notEmpty().withMessage('Department is required'),
   ],
   createEmployee
 );
+
 
 router.get(
   '/employees/:id',
@@ -46,7 +47,9 @@ router.get(
 router.put(
   '/employees/:id',
   [
-   param("eid").isMongoId(),
+    param("eid").isMongoId().withMessage("Invalid employee ID"),
+    body('first_name').optional().trim().notEmpty(),
+    body('last_name').optional().trim().notEmpty(),
     body("email").optional().isEmail(),
     body("salary").optional().isNumeric(),
     body("position").optional().isString(),
@@ -59,7 +62,7 @@ router.put(
 router.delete(
   '/employees',
   [
-    query('id').isMongoId().withMessage('Invalid employee ID')
+    query('eid').isMongoId().withMessage('Invalid employee ID')
   ],
   deleteEmployeeByQuery
 );

@@ -11,7 +11,6 @@ const toResponse = (employee) => ({
   salary : employee.salary,
   date_of_joining : employee.date_of_joining,
   department : employee.department
-  
 });
 
 exports.listEmployees = async (_req, res) => {
@@ -43,8 +42,8 @@ exports.createEmployee = async (req, res) => {
 
 exports.getEmployeeById = async (req, res) => {
   try {
-    const { employeeId } = req.params;
-    const doc = await Employee.findById(employeeId);
+    const { id } = req.params;
+    const doc = await Employee.findById(id);
     if (!doc) {
       return res.status(404).json({ message: "Employee not found" });
     }
@@ -61,9 +60,9 @@ exports.updateEmployeeById = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   } 
   try {
-    const { employeeId } = req.params;
+    const { id } = req.params;
     const data = matchedData(req, { locations: ['body'] });
-    const doc = await Employee.findByIdAndUpdate(employeeId, data, { new: true });
+    const doc = await Employee.findByIdAndUpdate(id, data, { new: true });
     if (!doc) {
       return res.status(404).json({ message: "Employee not found" });
     }
