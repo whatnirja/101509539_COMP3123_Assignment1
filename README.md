@@ -52,3 +52,9 @@ It provides routes for User and Employee management, supporting full CRUD operat
 3. Run server:
    ```bash
    npm run dev
+
+
+## Sample User Credentials 
+username: nirja_dabhi
+email: nirjadabhi@example.com
+password: secret123
