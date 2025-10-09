@@ -41,4 +41,8 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
 module.exports = app
