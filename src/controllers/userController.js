@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   const errors = validationResult(req);
@@ -29,7 +30,7 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  console.log("🔑 Login hit:", req.body);
+  console.log("[REQ] Login hit:", req.body);
   return res.json({ message: "Login endpoint reached" });
 };
 
@@ -48,7 +49,18 @@ exports.login = async (req, res) => {
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(401).json({ status: false, message: "Invalid Username and password" });
 
-    return res.status(200).json({ message: "Login successful." });
+    //json web token
+    const token = jwt.sign(
+      {
+        sub: user._id.toString(),
+        username: user.username,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    return res.status(200).json({ message: "Login successful.", jwt_token: token });
   } catch (e) {
     console.error("login error:", e);
     return res.status(500).json({ status: false, message: "Server error" });

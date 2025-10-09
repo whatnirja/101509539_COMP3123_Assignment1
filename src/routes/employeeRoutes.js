@@ -1,7 +1,6 @@
 const express = require('express');
 
-// const auth = require('../middleware/authMiddleware');
-// router.use(auth);
+const auth = require('../middleware/authMiddleware');
 
 const { body, param, query} = require('express-validator');
 
@@ -14,6 +13,7 @@ const {
 } = require('../controllers/employeeController');
 
 const router = express.Router();
+router.use(auth); // applying authentication middleware to all routes
 
 router.get('/', (req, res) => {
   res.send('Employee route');
@@ -47,7 +47,7 @@ router.get(
 router.put(
   '/employees/:id',
   [
-    param("eid").isMongoId().withMessage("Invalid employee ID"),
+    param("id").isMongoId().withMessage("Invalid employee ID"),
     body('first_name').optional().trim().notEmpty(),
     body('last_name').optional().trim().notEmpty(),
     body("email").optional().isEmail(),
