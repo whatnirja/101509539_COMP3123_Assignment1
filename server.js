@@ -16,9 +16,9 @@ app.use((req, _res, next) => {
 });
 
 
-app.use('/api/v1/users', require('./src/routes/userRoutes'));
+app.use('/api/v1/user', require('./src/routes/userRoutes'));
 
-app.use('/api/v1/employees', require('./src/routes/employeeRoutes'));
+app.use('/api/v1/emp', require('./src/routes/employeeRoutes'));
 
 app.get("/test-models", async (req, res) => {
   const User = require("./src/models/User");

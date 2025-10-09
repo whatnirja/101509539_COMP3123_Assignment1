@@ -4,6 +4,7 @@ const { signup, login } = require('../controllers/userController');
 
 const router = express.Router();
 
+//test route to verify the router is working
 router.get("/", (req, res) => {
   res.send("User route is working");
 });
