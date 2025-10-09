@@ -55,6 +55,6 @@ It provides routes for User and Employee management, supporting full CRUD operat
 
 
 ## Sample User Credentials 
-username: nirja_dabhi
-email: nirjadabhi@example.com
-password: secret123
+- username: nirja_dabhi
+- email: nirjadabhi@example.com
+- password: secret123
