@@ -1,20 +1,28 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
-  try{
-    await mongoose.connect(process.env.MONGO_URI, {
-      dbName : "comp3123_assignment1",
-      serverSelectionTimeoutMS: 5000,
-    });
-    console.log('MongoDB connected');
-  } catch(err){
-    console.error(err.message);
-    process.exit(1);
-  }
-}
+let cached = global._mongoose;
+if (!cached) cached = global._mongoose = { conn: null, promise: null };
 
-mongoose.connection.on("error", (err) => {
+module.exports = async function connectDB() {
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    const uri = process.env.MONGO_URI; // or switch to MONGODB_URI if that’s what you use in Vercel
+    if (!uri) throw new Error('Missing MONGO_URI env var');
+
+    cached.promise = mongoose.connect(uri, {
+      dbName: 'comp3123_assignment1',
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 5000
+    }).then(m => {
+      console.log('MongoDB connected');
+      return m;
+    });
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
+};
+
+mongoose.connection.on('error', (err) => {
   console.error(`MongoDB connection error: ${err}`);
 });
-
-module.exports = connectDB;
