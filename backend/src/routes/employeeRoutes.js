@@ -4,6 +4,8 @@ const auth = require('../middleware/authMiddleware');
 
 const { body, param, query} = require('express-validator');
 
+const protect = require('../middleware/authMiddleware');
+
 const {
   listEmployees,
   createEmployee,
@@ -19,10 +21,11 @@ router.get('/', (req, res) => {
   res.send('Employee route');
 });
 
-router.get("/employees", listEmployees);
+router.get("/employees", protect, listEmployees);
 
 router.post(
   '/employees',
+  protect,
   [
     body('first_name').trim().notEmpty().withMessage('First name is required'),
     body('last_name').trim().notEmpty().withMessage('Last name is required'),
@@ -38,6 +41,7 @@ router.post(
 
 router.get(
   '/employees/:id',
+  protect,
   [
     param('id').isMongoId().withMessage('Invalid employee ID')
   ],
@@ -46,6 +50,7 @@ router.get(
 
 router.put(
   '/employees/:id',
+  protect,
   [
     param("id").isMongoId().withMessage("Invalid employee ID"),
     body('first_name').optional().trim().notEmpty(),
@@ -61,6 +66,7 @@ router.put(
 
 router.delete(
   '/employees',
+  protect,
   [
     query('eid').isMongoId().withMessage('Invalid employee ID')
   ],

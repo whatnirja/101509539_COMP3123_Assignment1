@@ -7,7 +7,7 @@ module.exports = async function connectDB() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    const uri = process.env.MONGO_URI; // or switch to MONGODB_URI if that’s what you use in Vercel
+    const uri = process.env.MONGO_URI; 
     if (!uri) throw new Error('Missing MONGO_URI env var');
 
     cached.promise = mongoose.connect(uri, {

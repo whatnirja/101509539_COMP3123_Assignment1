@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
+const generateToken = require("../utils/generateToken");
+
 exports.signup = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -31,7 +33,11 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   console.log("[REQ] Login hit:", req.body);
-  return res.json({ message: "Login endpoint reached" });
+  return res.json(
+    { 
+      message: "Login endpoint reached" ,
+      token: generateToken(User._id),
+    });
 };
 
 
