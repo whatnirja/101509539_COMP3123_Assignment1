@@ -87,3 +87,22 @@ exports.deleteEmployeeByQuery = async (req, res) => {
     return res.status(500).json({ status: false, message: "Server error" });
   }
 };
+
+exports.searchEmployees = async (req, res) => {
+  try {
+    const { department, position } = req.query;
+    const query = {};
+
+    if (department) {
+      query.department = department;
+    }
+    if (position) {
+      query.position = position;
+    }
+    const employee = await Employee.find(query);
+
+    res.status(200).json(employee)
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

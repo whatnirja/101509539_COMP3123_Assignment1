@@ -11,7 +11,8 @@ const {
   createEmployee,
   getEmployeeById,
   updateEmployeeById,
-  deleteEmployeeByQuery
+  deleteEmployeeByQuery,
+  searchEmployees
 } = require('../controllers/employeeController');
 
 const router = express.Router();
@@ -72,6 +73,13 @@ router.delete(
   ],
   deleteEmployeeByQuery
 );
+
+//search functionality 
+router.get(
+  '/search',
+  protect,
+  searchEmployees
+)
 
 
 module.exports = router;
