@@ -5,8 +5,8 @@ const connectDB = require('./src/config/db');
 
 dotenv.config();
 
-const app = express();
-app.use(cors());
+const app = express(); // initializing express
+app.use(cors()); // used to enable CORS that allows cross-origin requests from different domains
 app.use(express.json());
 
 app.use((req, _res, next) => {
