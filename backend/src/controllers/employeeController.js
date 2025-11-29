@@ -121,15 +121,18 @@ exports.searchEmployees = async (req, res) => {
     const query = {};
 
     if (department) {
-      query.department = department;
+      query.department = { $regex: `^${department.trim()}`, $options: "i" };
     }
-    if (position) {
-      query.position = position;
-    }
-    const employee = await Employee.find(query);
 
-    res.status(200).json(employee)
+    if (position) {
+      query.position = { $regex: `^${position.trim()}`, $options: "i" };
+    }
+
+    const employees = await Employee.find(query);
+
+    res.status(200).json(employees);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+

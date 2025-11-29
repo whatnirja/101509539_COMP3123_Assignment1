@@ -27,43 +27,49 @@ export default function ViewEmployee() {
   }
   
   return (
-    <div className="page">
-      <h1 className="title">Employee Details</h1>
+    <div className="page view-employee-page">
 
-      {employee.profile_picture && (
-        <img
-          className="employee-photo"
-          src={`http://localhost:8080/uploads/${employee.profile_picture}`}
-          alt="Profile"
-        />
-      )}
+      <div className="employee-card">
 
-      <p className="detail"><strong>Name:</strong> {employee.first_name} {employee.last_name}</p>
-      <p className="detail"><strong>Email:</strong> {employee.email}</p>
-      <p className="detail"><strong>Position:</strong> {employee.position}</p>
-      <p className="detail"><strong>Department:</strong> {employee.department}</p>
-      <p className="detail"><strong>Salary:</strong> {employee.salary}</p>
-      <p className="detail">
-        <strong>Date of Joining:</strong> {new Date(employee.date_of_joining).toDateString()}
-      </p>
+        <h1 className="title">Employee Details</h1>
 
-      <br/>
+        {employee.profile_picture && (
+          <div className="photo-wrapper">
+            <img
+              className="employee-photo"
+              src={`http://localhost:8080/uploads/${employee.profile_picture}`}
+              alt="Profile"
+            />
+          </div>
+        )}
 
-      <button
-        className="btn btn-primary"
-        onClick={() => navigate(`/employees/edit/${employee.employee_id}`)}
-      >
-        Edit
-      </button>
+        <div className="details-grid">
+          <p><strong>Name:</strong> {employee.first_name} {employee.last_name}</p>
+          <p><strong>Email:</strong> {employee.email}</p>
+          <p><strong>Position:</strong> {employee.position}</p>
+          <p><strong>Department:</strong> {employee.department}</p>
+          <p><strong>Salary:</strong> {employee.salary}</p>
+          <p><strong>Date of Joining:</strong> {new Date(employee.date_of_joining).toDateString()}</p>
+        </div>
 
-      &nbsp;&nbsp;
+        <div className="actions">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate(`/employees/edit/${employee.employee_id}`)}
+          >
+            Edit
+          </button>
 
-      <button
-        className="btn btn-secondary"
-        onClick={() => navigate("/employees")}
-      >
-        Back
-      </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate("/employees")}
+          >
+            Back
+          </button>
+        </div>
+
+      </div>
+
     </div>
-  )
+  );
 }

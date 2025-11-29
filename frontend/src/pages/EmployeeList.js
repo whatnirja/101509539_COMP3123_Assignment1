@@ -27,8 +27,8 @@ export default function Employees() {
     try {
       const params = new URLSearchParams();
 
-      if (department) params.append("department", department);
-      if (position) params.append("position", position);
+      if (department) params.append("department", department.toLowerCase());
+      if (position) params.append("position", position.toLowerCase());
 
       const response = await api.get(`/emp/search?${params.toString()}`);
       setEmployees(response.data);
@@ -51,7 +51,7 @@ export default function Employees() {
 
   const handleLogout = () => {
   localStorage.removeItem("token");
-  navigate("/login");
+  navigate("/");
 };
 
 
@@ -154,7 +154,7 @@ export default function Employees() {
 
       <button className="btn btn-secondary" onClick={() => {
         localStorage.removeItem("token");
-        navigate("/");
+        handleLogout();
       }}>
         Logout
       </button>

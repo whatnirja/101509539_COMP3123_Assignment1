@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/config/db');
+const path = require('path');
+
 
 dotenv.config();
 
@@ -10,6 +12,7 @@ app.use(cors()); // used to enable CORS that allows cross-origin requests from d
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 app.use((req, _res, next) => {
   console.log(`[REQ] ${req.method} ${req.originalUrl}`);
@@ -30,13 +33,15 @@ app.get('/test-models', async (_req, res) => {
 app.get('/ping', (_req, res) => res.send('pong'));
 app.get('/', (_req, res) => res.send('API is running...'));
 
+//uploads 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 // 404
 app.use((req, res) => {
   res.status(404).json({ status: false, message: 'Route not found' });
 });
 
-//uploads 
-app.use('/uploads', express.static('uploads'));
 
 module.exports = app;
 

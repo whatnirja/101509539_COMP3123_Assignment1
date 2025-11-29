@@ -81,90 +81,98 @@ export default function EditEmployee() {
   }
 
   return (
-    <div className="page">
-      <h1>Edit Employee</h1>
+    <div className="page edit-employee-page">
 
-      <form onSubmit={handleSubmit}>
+      <div className="employee-card">
 
-        <input
-          type="text"
-          className="form-control"
-          name="first_name"
-          placeholder="First Name"
-          value={form.first_name}
-          onChange={handleChange}
-        />
+        <h1>Edit Employee</h1>
 
-        <input
-          type="text"
-          className="form-control"
-          name="last_name"
-          placeholder="Last Name"
-          value={form.last_name}
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit} className="edit-form">
 
-        <input
-          type="email"
-          className="form-control"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-        />
+          <div className="form-grid">
+            <input
+              type="text"
+              className="form-control"
+              name="first_name"
+              placeholder="First Name"
+              value={form.first_name}
+              onChange={handleChange}
+            />
 
-        <input
-          type="text"
-          className="form-control"
-          name="position"
-          placeholder="Position"
-          value={form.position}
-          onChange={handleChange}
-        />
+            <input
+              type="text"
+              className="form-control"
+              name="last_name"
+              placeholder="Last Name"
+              value={form.last_name}
+              onChange={handleChange}
+            />
 
-        <input
-          type="number"
-          className="form-control"
-          name="salary"
-          placeholder="Salary"
-          value={form.salary}
-          onChange={handleChange}
-        />
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+            />
 
-        <input
-          type="date"
-          className="form-control"
-          name="date_of_joining"
-          value={form.date_of_joining}
-          onChange={handleChange}
-        />
+            <input
+              type="text"
+              className="form-control"
+              name="position"
+              placeholder="Position"
+              value={form.position}
+              onChange={handleChange}
+            />
 
-        <input
-          type="text"
-          className="form-control"
-          name="department"
-          placeholder="Department"
-          value={form.department}
-          onChange={handleChange}
-        />
+            <input
+              type="number"
+              className="form-control"
+              name="salary"
+              placeholder="Salary"
+              value={form.salary}
+              onChange={handleChange}
+            />
 
-        <input
-          type="file"
-          className="form-control-file"
-          onChange={handleFileChange}
-        />
+            <input
+              type="date"
+              className="form-control"
+              name="date_of_joining"
+              value={form.date_of_joining}
+              onChange={handleChange}
+            />
 
-        <button type="submit" className="btn btn-primary">Update</button>
-      </form>
+            <input
+              type="text"
+              className="form-control"
+              name="department"
+              placeholder="Department"
+              value={form.department}
+              onChange={handleChange}
+            />
+          </div>
 
-      <br />
+          <input
+            type="file"
+            className="form-control"
+            onChange={handleFileChange}
+          />
 
-      <button
-        className="btn btn-secondary"
-        onClick={() => navigate(`/employees/${id}`)}
-      >
-        Cancel
-      </button>
+          <div className="actions">
+            <button type="submit" className="btn btn-primary">Update</button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate(`/employees/${id}`)}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+
+      </div>
     </div>
   );
+
 }
