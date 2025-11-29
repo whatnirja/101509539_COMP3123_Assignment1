@@ -33,34 +33,39 @@ export default function Login() {
   };
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="page">
       <h1>Login</h1>
 
       <form onSubmit={handleLogin}>
         <input
           type="text"
+          className="form-control"
           name="email"
           placeholder="Email or Username"
           value={form.email}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="password"
+          className="form-control"
           name="password"
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
-        <button type="submit">Login</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
 
       <br/>
-      <button onClick={() => navigate("/signup")}>
+
+      <button
+        className="btn btn-secondary"
+        onClick={() => navigate("/signup")}
+      >
         Go to Signup
       </button>
     </div>
   );
-
 }

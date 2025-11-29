@@ -59,73 +59,92 @@ export default function AddEmployee() {
   };
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="page">
       <h1>Add Employee</h1>
 
       <form onSubmit={handleSubmit}>
 
         <input
           type="text"
+          className="form-control"
           name="first_name"
           placeholder="First Name"
           value={form.first_name}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="text"
+          className="form-control"
           name="last_name"
           placeholder="Last Name"
           value={form.last_name}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="email"
+          className="form-control"
           name="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="text"
+          className="form-control"
           name="position"
           placeholder="Position"
           value={form.position}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="number"
+          className="form-control"
           name="salary"
           placeholder="Salary"
           value={form.salary}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="date"
+          className="form-control"
           name="date_of_joining"
           value={form.date_of_joining}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="text"
+          className="form-control"
           name="department"
           placeholder="Department"
           value={form.department}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
-        <input type="file" onChange={handleFileChange} /><br/><br/>
+        <input
+          type="file"
+          className="form-control-file"
+          onChange={handleFileChange}
+        />
 
-        <button type="submit">Create</button>
+        <button type="submit" className="btn btn-primary">
+          Create
+        </button>
       </form>
 
       <br />
-      <button onClick={() => navigate("/employees")}>Back</button>
+
+      <button
+        className="btn btn-secondary"
+        onClick={() => navigate("/employees")}
+      >
+        Back
+      </button>
     </div>
   );
 }

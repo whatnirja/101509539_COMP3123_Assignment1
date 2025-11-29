@@ -7,15 +7,17 @@ import AddEmployee from "./pages/AddEmployee";
 import EditEmployee from "./pages/EditEmployee";
 import ViewEmployee from "./pages/ViewEmployee";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/employees" element={<EmployeeList />} />
-      <Route path="/employees/add" element={<AddEmployee />} />
-      <Route path="/employees/:id" element={<ViewEmployee />} />
-      <Route path="/employees/edit/:id" element={<EditEmployee />} />
+      <Route path="/employees" element={<ProtectedRoute><EmployeeList /></ProtectedRoute>} />
+      <Route path="/employees/add" element={<ProtectedRoute><AddEmployee /></ProtectedRoute>} />
+      <Route path="/employees/:id" element={<ProtectedRoute><ViewEmployee /></ProtectedRoute>} />
+      <Route path="/employees/edit/:id" element={<ProtectedRoute><EditEmployee /></ProtectedRoute>} />
     </Routes>
   );
 }

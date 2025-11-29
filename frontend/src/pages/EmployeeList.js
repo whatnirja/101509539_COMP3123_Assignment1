@@ -49,100 +49,117 @@ export default function Employees() {
     }
   };
 
+  const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
+};
+
+
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="page">
       <h1>Employees</h1>
 
       {/* Search Filters */}
-      <div style={{ marginBottom: "20px" }}>
+      <div className="search-wrapper">
         <input
           type="text"
+          className="form-control"
           placeholder="Search by Department"
           value={department}
           onChange={(e) => setDepartment(e.target.value)}
-        />{" "}
-        &nbsp;
+        />
+
         <input
           type="text"
+          className="form-control"
           placeholder="Search by Position"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
-        />{" "}
-        &nbsp;
-        <button onClick={handleSearch}>Search</button>
-        &nbsp;
-        <button onClick={fetchEmployees}>Clear</button>
-        &nbsp;&nbsp;
-        <button onClick={() => navigate("/add-employee")}>Add Employee</button>
+        />
+
+        <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+        <button className="btn btn-secondary" onClick={fetchEmployees}>Clear</button>
+        <button className="btn btn-primary" onClick={() => navigate("/employees/add")}>
+          Add Employee
+        </button>
       </div>
 
       {/* Table */}
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          textAlign: "left"
-        }}
-      >
+      <table className="table">
         <thead>
           <tr>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Photo</th>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Name</th>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Email</th>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Position</th>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Department</th>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Salary</th>
-            <th style={{ borderBottom: "2px solid #ccc", padding: "10px" }}>Actions</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
         <tbody>
           {employees.map(emp => (
             <tr key={emp.employee_id}>
-              <td style={{ padding: "10px" }}>
+              <td>
                 {emp.profile_picture ? (
-                  <img 
+                  <img
+                    className="employee-img"
                     src={`http://localhost:8080/uploads/${emp.profile_picture}`}
                     alt="profile"
-                    style={{ width: "60px", height: "60px", borderRadius: "5px", objectFit: "cover" }}
                   />
                 ) : (
                   "—"
                 )}
               </td>
 
-              <td style={{ padding: "10px" }}>
-                {emp.first_name} {emp.last_name}
-              </td>
+              <td>{emp.first_name} {emp.last_name}</td>
 
-              <td style={{ padding: "10px" }}>
-                {emp.email}
-              </td>
+              <td>{emp.email}</td>
 
-              <td style={{ padding: "10px" }}>
-                {emp.position}
-              </td>
+              <td>{emp.position}</td>
 
-              <td style={{ padding: "10px" }}>
-                {emp.department}
-              </td>
+              <td>{emp.department}</td>
 
-              <td style={{ padding: "10px" }}>
-                ${emp.salary}
-              </td>
+              <td>${emp.salary}</td>
 
-              <td style={{ padding: "10px" }}>
-                <button onClick={() => navigate(`/employees/${emp.employee_id}`)}>View</button>
-                &nbsp;
-                <button onClick={() => navigate(`/employees/edit/${emp.employee_id}`)}>Edit</button>
-                &nbsp;
-                <button onClick={() => handleDelete(emp.employee_id)}>Delete</button>
+              <td>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate(`/employees/${emp.employee_id}`)}
+                >
+                  View
+                </button>
+
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => navigate(`/employees/edit/${emp.employee_id}`)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(emp.employee_id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
+      <br />
+
+      <button className="btn btn-secondary" onClick={() => {
+        localStorage.removeItem("token");
+        navigate("/");
+      }}>
+        Logout
+      </button>
+
     </div>
   );
+
 }

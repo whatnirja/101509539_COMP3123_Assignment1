@@ -34,41 +34,46 @@ export default function Signup() {
   };
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="page">
       <h1>Signup</h1>
 
       <form onSubmit={handleSignup}>
 
         <input
           type="text"
+          className="form-control"
           name="username"
           placeholder="Username"
           value={form.username}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="email"
+          className="form-control"
           name="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
         <input
           type="password"
+          className="form-control"
           name="password"
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
-        /><br/><br/>
+        />
 
-        <button type="submit">Create Account</button>
+        <button type="submit" className="btn btn-primary">
+          Create Account
+        </button>
       </form>
 
       <br/>
 
-      <button onClick={() => navigate("/login")}>
+      <button className="btn btn-secondary" onClick={() => navigate("/")}>
         Back to Login
       </button>
     </div>
