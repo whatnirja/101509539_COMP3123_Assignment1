@@ -28,7 +28,7 @@ export default function EmployeeList() {
 
     try {
       await api.delete(`/emp/employees?eid=${id}`);
-      fetchEmployees();
+      setEmployees(employees.filter(e => e.employee_id !== id));
     } catch (error) {
       console.error("Error deleting employee:", error);
       alert("Failed to delete employee. Please try again later.");
@@ -36,52 +36,45 @@ export default function EmployeeList() {
   };
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Employee List</h1>
+    <div style={{
+      display: "flex",
+      gap: "20px",
+      flexWrap: "wrap"
+    }}>
+    {employees.map(emp => (
+      <div 
+        key={emp.employee_id} 
+        style={{
+          border: "1px solid #ccc",
+          padding: "20px",
+          borderRadius: "8px",
+          width: "250px"
+        }}
+      >
+        {emp.profile_picture && (
+          <img 
+            src={`http://localhost:8080/uploads/${emp.profile_picture}`} 
+            alt="profile"
+            style={{ width: "100%", height: "150px", objectFit: "cover", borderRadius: "8px" }}
+          />
+        )}
 
-      <button onClick={() => navigate("/employees/add")} style={{ marginBottom: "20px" }}>
-        Add Employee
-      </button>
+        <h3>{emp.first_name} {emp.last_name}</h3>
+        <p>{emp.position}</p>
+        <p>{emp.department}</p>
 
-      <table border="1" cellPadding="10" width="100%">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Position</th>
-            <th>Salary</th>
-            <th>Date Joined</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {employees.map((emp) => (
-            <tr key={emp.employee_id}>
-              <td>{emp.first_name} {emp.last_name}</td>
-              <td>{emp.department}</td>
-              <td>{emp.position}</td>
-              <td>{emp.salary}</td>
-              <td>{new Date(emp.date_of_joining).toLocaleDateString()}</td>
-
-              <td>
-                <button onClick={() => navigate(`/employees/${emp.employee_id}`)}>
-                  View
-                </button>
-
-                <button onClick={() => navigate(`/employees/${emp.employee_id}/edit`)}>
-                  Edit
-                </button>
-
-                <button onClick={() => handleDelete(emp.employee_id)}>
-                  Delete
-                </button>
-              </td>
-
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <button onClick={() => navigate(`/employees/${emp.employee_id}`)}>
+          View
+        </button>
+        <button onClick={() => navigate(`/employees/edit/${emp.employee_id}`)}>
+          Edit
+        </button>
+        <button onClick={() => handleDelete(emp.employee_id)}>
+          Delete
+        </button>
+      </div>
+      ))}
     </div>
+
   );
 };

@@ -7,6 +7,8 @@ dotenv.config();
 
 const app = express(); // initializing express
 app.use(cors()); // used to enable CORS that allows cross-origin requests from different domains
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use((req, _res, next) => {
