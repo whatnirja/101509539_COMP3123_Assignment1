@@ -33,6 +33,9 @@ app.use((req, res) => {
   res.status(404).json({ status: false, message: 'Route not found' });
 });
 
+//uploads 
+app.use('/uploads', express.static('uploads'));
+
 module.exports = app;
 
 // local-only listener

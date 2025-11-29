@@ -10,7 +10,8 @@ const toResponse = (employee) => ({
   position : employee.position,
   salary : employee.salary,
   date_of_joining : employee.date_of_joining,
-  department : employee.department
+  department : employee.department,
+  profile_picture : employee.profile_picture,
 });
 
 exports.listEmployees = async (_req, res) => {
@@ -23,14 +24,26 @@ exports.listEmployees = async (_req, res) => {
 };
 
 exports.createEmployee = async (req, res) => {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   } 
   try {
     const data = matchedData(req, { locations: ['body'] });
-      const doc = await Employee.create(data);
-    return res.status(201).json({ message: "Employee created successfully.", employee_id: doc._id.toString() });
+
+    if (req.file) {
+      data.profile_picture = req.file.filename;
+    }
+
+    const doc = await Employee.create(data);
+
+
+    return res.status(201).json({ 
+      message: "Employee created successfully.", 
+      employee_id: doc._id.toString() 
+    });
+    
   } catch (e) {
     if (e.code === 11000) {
       return res.status(409).json({ status: false, message: "Employee email already exists" });
@@ -55,20 +68,34 @@ exports.getEmployeeById = async (req, res) => {
 
 
 exports.updateEmployeeById = async (req, res) => {
+
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   } 
   try {
+
     const { id } = req.params;
     const data = matchedData(req, { locations: ['body'] });
+
+    if (req.file) {
+      data.profile_picture = req.file.filename;
+    }
+
+
     const doc = await Employee.findByIdAndUpdate(id, data, { new: true });
+
     if (!doc) {
       return res.status(404).json({ message: "Employee not found" });
     }
+
     return res.status(200).json(toResponse(doc));
+
   } catch (err) {
+
     return res.status(500).json({ message: err.message });
+
   } 
 };
 

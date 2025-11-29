@@ -5,6 +5,7 @@ const auth = require('../middleware/authMiddleware');
 const { body, param, query} = require('express-validator');
 
 const protect = require('../middleware/authMiddleware');
+const upload = require('../middleware/upload');
 
 const {
   listEmployees,
@@ -27,6 +28,7 @@ router.get("/employees", protect, listEmployees);
 router.post(
   '/employees',
   protect,
+  upload.single('image'),
   [
     body('first_name').trim().notEmpty().withMessage('First name is required'),
     body('last_name').trim().notEmpty().withMessage('Last name is required'),
@@ -52,6 +54,7 @@ router.get(
 router.put(
   '/employees/:id',
   protect,
+  upload.single('image'),
   [
     param("id").isMongoId().withMessage("Invalid employee ID"),
     body('first_name').optional().trim().notEmpty(),
@@ -79,7 +82,7 @@ router.get(
   '/search',
   protect,
   searchEmployees
-)
+);
 
 
 module.exports = router;
