@@ -105,9 +105,14 @@ export default function Employees() {
                 {emp.profile_picture ? (
                   <img
                     className="employee-img"
-                    src={`data:image/jpeg;base64,${emp.profile_picture}`}
+                    src={
+                      emp.profile_picture.startsWith("data:image")
+                        ? emp.profile_picture
+                        : `${process.env.REACT_APP_API_URL}/uploads/${emp.profile_picture}`
+                    }
                     alt="profile"
                   />
+
                 ) : (
                   "—"
                 )}
