@@ -105,18 +105,14 @@ export default function Employees() {
                 {emp.profile_picture ? (
                   <img
                     className="employee-img"
-                    src={
-                      emp.profile_picture?.startsWith("data:image")
-                        ? emp.profile_picture
-                        : `${process.env.REACT_APP_API_URL}/uploads/${emp.profile_picture}`
-                    }
+                    src={`data:image/jpeg;base64,${emp.profile_picture}`}
                     alt="profile"
                   />
-
                 ) : (
                   "—"
                 )}
               </td>
+
 
               <td>{emp.first_name} {emp.last_name}</td>
 
