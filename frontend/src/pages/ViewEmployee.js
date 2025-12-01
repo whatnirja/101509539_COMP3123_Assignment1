@@ -36,13 +36,9 @@ export default function ViewEmployee() {
         {employee.profile_picture && (
           <div className="photo-wrapper">
             <img
-              className="employee-photo"
-              src={
-                employee.profile_picture?.startsWith("data:image")
-                  ? employee.profile_picture
-                  : `${process.env.REACT_APP_API_URL}/uploads/${employee.profile_picture}`
-              }
-              alt="Profile"
+              className="employee-img"
+              src={`data:image/jpeg;base64,${employee.profile_picture}`}
+              alt="profile"
             />
           </div>
         )}
