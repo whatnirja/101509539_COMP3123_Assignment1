@@ -13,7 +13,8 @@ export default function EditEmployee() {
     position: "",
     salary: "",
     date_of_joining: "",
-    department: ""
+    department: "",
+    profile_picture: ""
   });
 
   const [file, setFile] = useState(null);
@@ -31,7 +32,8 @@ export default function EditEmployee() {
           position: empData.position,
           salary: empData.salary,
           date_of_joining: empData.date_of_joining,
-          department: empData.department
+          department: empData.department,
+          profile_picture: empData.profile_picture
         });
       } catch (error) {
         console.error("Error fetching employee data:", error);
@@ -60,6 +62,12 @@ export default function EditEmployee() {
 
     for (const key in form) {
       formData.append(key, form[key]);
+    }
+
+    for (const key in form) {
+      if (key !== "profile_picture") {
+        formData.append(key, form[key]);
+      }
     }
 
     if (file) {
