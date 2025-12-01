@@ -1,63 +1,134 @@
-# COMP3123 Assignment 1 – Backend API (Node.js, Express, MongoDB)
+# COMP3123 – Full Stack Development I
+## Assignment 2 – Employee Management System (MERN)
 
-**Student Name:** Nirja Arun Dabhi  
 **Student ID:** 101509539  
-**Course:** COMP3123 – Full Stack Development  
-**Due Date:** October 12, 2025  
+**Name:** Nirja Dabhi
 
-## Project Overview
-This backend REST API is built using Node.js, Express.js, and MongoDB Atlas.  
-It provides routes for User and Employee management, supporting full CRUD operations, authentication, and validation as required in the assignment.
+## Overview
+This is a full-stack MERN Employee Management System that includes user authentication, employee CRUD operations, image uploads using Multer, and full deployment using Render (backend), Vercel (frontend), and MongoDB Atlas (database).
 
 ## Features
-### User Module
-- User registration (signup)
-- User login (authentication)
-- Password encryption using bcrypt
-- JWT token generation for secure authentication
-- Duplicate user prevention (unique username/email)
 
-### Employee Module
-- Create, view, update, and delete employee records
-- Validation for fields such as name, email, salary, and department
-- Secured endpoints using JWT authentication
-- Returns structured JSON responses with proper HTTP status codes
+### Authentication
+- User signup
+- User login
+- JWT authentication
+- Password hashing (bcrypt)
+- Protected routes
 
-### Validation and Security
-- Input validation using express-validator  
-- Mongoose schema validation  
-- Password hashing using bcryptjs  
-- JWT authentication for protected routes  
-- Environment variables stored securely in `.env`
+### Employee Management
+- Create new employees
+- View all employees
+- View employee details
+- Update employee information
+- Delete employees
+- Filter by department or position
 
-## Technologies Used
-| Category | Tools / Libraries |
-|-----------|-------------------|
-| Backend Framework | Node.js, Express.js |
-| Database | MongoDB Atlas, Mongoose |
-| Validation | express-validator |
-| Authentication | bcryptjs, jsonwebtoken |
-| Configuration | dotenv |
-| Testing | Postman |
-| Dev Utility | Nodemon |
+### Image Upload
+- Multer-based profile picture upload
+- Images stored in `/uploads`
+- Frontend displays uploaded pictures correctly
 
-## Installation and Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<your-username>/101509539_COMP3123_Assignment1.git
-   cd 101509539_COMP3123_Assignment1
-2. Install dependencies:
-   ```bash
-   npm install
-3. Run server:
-   ```bash
-   npm run dev
+### Deployment
+- Backend: Render
+- Frontend: Vercel
+- Database: MongoDB Atlas
+
+## Technology Stack
+
+### Frontend
+- React.js  
+- Axios  
+- React Router  
+- Bootstrap  
+
+### Backend
+- Node.js  
+- Express.js  
+- MongoDB Atlas  
+- Mongoose  
+- Multer  
+- bcrypt  
+- JSON Web Tokens  
 
 
-## Sample User Credentials 
-   ```bash
-   {
-      "username": "nirja_dabhi"
-      "email": "nirjadabhi@example.com"
-      "password": "secret123"
-   }
+## Project Structure
+
+### Backend
+backend/
+server.js
+package.json
+.env
+uploads/
+controllers/
+models/
+routes/
+middleware/
+
+### Frontend
+frontend/
+src/
+App.js
+api/axios.js
+components/
+pages/
+styles/
+package.json
+.env
+
+
+## API Endpoints
+
+### Authentication
+| Method | Endpoint      | Description    |
+|--------|---------------|----------------|
+| POST   | /auth/signup  | Register user  |
+| POST   | /auth/login   | Login user     |
+
+### Employees
+| Method | Endpoint                | Description         |
+|--------|--------------------------|---------------------|
+| GET    | /emp/employees          | Get all employees   |
+| GET    | /emp/employees/:id      | Get single employee |
+| POST   | /emp/employees          | Create employee     |
+| PUT    | /emp/employees/:id      | Update employee     |
+| DELETE | /emp/employees/:id      | Delete employee     |
+
+## Local Setup
+
+1. Clone the repository  
+2. Install backend dependencies (`npm install`)  
+3. Install frontend dependencies (`npm install`)  
+4. Add `.env` files  
+5. Run backend (`npm start`)  
+6. Run frontend (`npm start`)  
+
+
+## Deployment
+
+### Backend (Render)
+- Create Web Service  
+- Add environment variables  
+- Build command: `npm install`  
+- Start command: `node server.js`  
+
+### Frontend (Vercel)
+- Connect GitHub  
+- Add environment variable:  
+  `REACT_APP_API_URL=https://101509539-comp-3123-assignment1-hkb.vercel.app`  
+
+
+**Local:**  
+`REACT_APP_API_URL=http://localhost:8080/api/v1`
+
+**Deployed:**  
+`REACT_APP_API_URL=https://101509539-comp-3123-assignment1-hkb.vercel.app`
+
+
+## Screenshots
+<img width="777" height="522" alt="Screenshot 2025-11-30 at 10 53 54 PM" src="https://github.com/user-attachments/assets/e7be8d85-b102-4f0a-80e9-f30a627286df" />
+<img width="1198" height="1011" alt="Screenshot 2025-11-30 at 10 54 54 PM" src="https://github.com/user-attachments/assets/5722e815-df48-48dc-8bc4-8d40082c46af" />
+<img width="637" height="514" alt="Screenshot 2025-11-30 at 10 55 21 PM" src="https://github.com/user-attachments/assets/04ea8817-e38b-43ba-84f4-2138acb52e58" />
+
+
+
