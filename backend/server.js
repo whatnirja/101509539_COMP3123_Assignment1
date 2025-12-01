@@ -3,10 +3,16 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./src/config/db");
 const path = require("path");
+const fs = require("fs");
 
 dotenv.config();
 
 const app = express();
+
+if (!fs.existsSync("./uploads")) {
+  fs.mkdirSync("./uploads");
+}
+
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
