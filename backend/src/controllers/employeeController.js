@@ -24,11 +24,11 @@ exports.listEmployees = async (_req, res) => {
 };
 
 exports.createEmployee = async (req, res) => {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
-  }
-
+  } 
   try {
     const data = matchedData(req, { locations: ['body'] });
 
@@ -38,11 +38,11 @@ exports.createEmployee = async (req, res) => {
 
     const doc = await Employee.create(data);
 
-    return res.status(201).json({
-      message: "Employee created successfully.",
-      employee_id: doc._id.toString()
+    return res.status(201).json({ 
+      message: "Employee created successfully.", 
+      employee_id: doc._id.toString() 
     });
-
+    
   } catch (e) {
     if (e.code === 11000) {
       return res.status(409).json({ status: false, message: "Employee email already exists" });
@@ -51,7 +51,6 @@ exports.createEmployee = async (req, res) => {
     return res.status(500).json({ status: false, message: "Server error" });
   }
 };
-
 
 exports.getEmployeeById = async (req, res) => {
   try {
@@ -68,12 +67,14 @@ exports.getEmployeeById = async (req, res) => {
 
 
 exports.updateEmployeeById = async (req, res) => {
+
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
-  }
-
+  } 
   try {
+
     const { id } = req.params;
     const data = matchedData(req, { locations: ['body'] });
 
@@ -90,10 +91,27 @@ exports.updateEmployeeById = async (req, res) => {
     return res.status(200).json(toResponse(doc));
 
   } catch (err) {
+
     return res.status(500).json({ message: err.message });
-  }
+
+  } 
 };
 
+exports.deleteEmployeeByQuery = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ status: false, message: "Validation error", errors: errors.array() });
+  }
+  try {
+    const { eid } = req.query;
+    const deleted = await Employee.findByIdAndDelete(eid);
+    if (!deleted) return res.status(404).json({ status: false, message: "Employee not found" });
+    return res.status(204).send();
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ status: false, message: "Server error" });
+  }
+};
 
 exports.searchEmployees = async (req, res) => {
   try {
@@ -115,4 +133,3 @@ exports.searchEmployees = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-

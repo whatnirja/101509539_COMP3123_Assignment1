@@ -71,9 +71,7 @@ router.put(
 router.delete(
   '/employees',
   protect,
-  [
-    query('eid').isMongoId().withMessage('Invalid employee ID')
-  ],
+  query('eid').isMongoId().withMessage('Invalid employee ID'),
   deleteEmployeeByQuery
 );
 
